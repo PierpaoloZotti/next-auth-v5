@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { FormError } from '../form-error';
+import { FormSuccess } from '../form-success';
 
 export const LoginForm = () => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -55,7 +57,6 @@ export const LoginForm = () => {
                       placeholder='john@doe.it'
                     />
                   </FormControl>
-                  <FormMessage></FormMessage>
                 </FormItem>
               )}
             />
@@ -72,11 +73,17 @@ export const LoginForm = () => {
                       type='password'
                     />
                   </FormControl>
-                  <FormMessage></FormMessage>
                 </FormItem>
               )}
             />
           </div>
+          <FormError
+            message={
+              form.formState.errors?.email?.message ||
+              form.formState.errors?.password?.message
+            }
+          />
+          <FormSuccess message='' />
           <Button
             type='submit'
             className='w-full'
